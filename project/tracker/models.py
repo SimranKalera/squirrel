@@ -61,6 +61,19 @@ class Squirrel(models.Model):
             max_length=300,
             help_text=_('Additional commentary on the squirrel location'),
             )
+    quaas = models.BooleanField(
+            help_text=_('Whether the squirrel was heard quaaing'),
+            )
+    moans = models.BooleanField(
+            help_text=_('Whether the squirrel was heard moaning'),
+            )
+    tail_flags = models.BooleanField(
+            help_text=_('Whether the squirrel was seen flagging its tail'),
+            )
+    tail_twitches = models.BooleanField(
+            help_text=_('Whether the squirrel was seen twitching its tail'),
+            )
+
   
 
 
