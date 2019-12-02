@@ -13,6 +13,17 @@ class Squirrel(models.Model):
             help_text=_('Identification tag for each squirrel sighting'),
             )
     
+    AM = 'am'
+    PM = 'pm'
+    ADULT = 'adult'
+    JUVENILE = 'juvenile'
+    GRAY = 'gray'
+    CINNAMON = 'cinnamon'
+    BLACK = 'black'
+    GROUND_PLANE = 'ground plane'
+    ABOVE_GROUND = 'above ground'
+
+    
     SHIFT_CHOICES = (
             (AM, 'AM'),
             (PM, 'PM'),
@@ -48,6 +59,8 @@ class Squirrel(models.Model):
             choices= COLOR_CHOICES,
             help_text=_('Value is either "Gray," "Cinnamon" or "Black."'),
             )
+    
+    
     LOCATION_CHOICES = (
             (GROUND_PLANE , 'Ground Plane'),
             (ABOVE_GROUND, 'Above Ground'),
