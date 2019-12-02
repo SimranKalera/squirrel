@@ -83,6 +83,29 @@ class Squirrel(models.Model):
             help_text=_('Whether the Squirrel was seen running from humans, seeing them as a threat'),
             )
 
+    running = models.BooleanField(
+            help_text=_('Whether squirrel was seen running'),
+            )
+    chasing = models.BooleanField(
+            help_text=_('Whether squirrel was seen chasing another squirrel.'),
+            )
+    climbing = models.BooleanField(
+            help_text=_('Whether Squirrel was seen climbing a tree or other environmental landmark.'),
+            )
+    eating = models.BooleanField(
+            help_text=_('Whether squirrel was seen eating'),
+            )
+    foraging = models.BooleanField(
+            help_text=_('Whether squirrel was seen foraging for food'),
+            )
+    other_activities = models.CharField(
+            max_length=200,
+            help_text=_('Whether squirrel was seen engaged in any other activity'),
+            )
+    kuks = models.BooleanField(
+            help_text=_('Whether squirrel was heard kukking'),
+            )
+
   
 
 
