@@ -6,42 +6,40 @@ from tracker.models import Squirrel
 class Command(BaseCommand):
     help = 'Import data from 2018 census file'
 
-    def add_arguments(self, parser):
-        parser.add_argument('file_path', type=str, help='Indicates the file path of the squirrel data file')
+    def add_arguments(self,parser):
+        parser.add_argument('args')
 
-    def handle(self, *args, **kwargs):
-        file_path = sys.argv[0]
-        if not os.path.exists(file_path):
-            raise CommandError("%s doesnt exist"%file_path)
-        
-        data = pd.read_csv(file_path, delimiter=',')
-        squirrels = [
-                Squirrel(
-                    latitude = data.ix[row]['Y'],
-                    longitude = data.ix[row]['X'],
-                    unique_id = data.ix[row]['Unique Squirrel ID'],
-                    shift = data.ix[row]['Shift'],
-                    date = data.ix[row]['Date'],
-                    age = data.ix[row]['Age'],
-                    primary_fur_color = data.ix[row]['Primary Fur Color'],
-                    location = data.ix[row]['Location'],
-                    specific_location = data.ix[row]['Specific Location'],
-                    quaas = data.ix[row]['Quaas'],
-                    moans = data.ix[row]['Moans'],
-                    tail_flags = data.ix[row]['Tail flags'],
-                    tail_twitches = data.ix[row]['Tail twitches'],
-                    approaches = data.ix[row]['Approaches'],
-                    indifferent = data.ix[row]['Indifferent'],
-                    runs_from = data.ix[row]['Runs from'],
-                    running = data.ix[row]['Running'],
-                    chasing = data.ix[row]['Chasing'],
-                    climbing = data.ix[row]['Climbing'],
-                    eating = data.ix[row]['Eating'],
-                    foraging = data.ix[row]['Foraging'],
-                    other_activities = data.ix[row]['Other Activites'],
-                    kuks = data.ix[row]['Kuks'],
-                    )
-               for row in data
-               ]
-        Squirrel.objects.bulk_create(squirrels)
+
+    def handle(self,*args,**options):
+
+        with open(sys.argv[0],'r') as file:
+            rows = csv.reader(file, delimiter=',')
+
+            for row in rows:
             
+                db_row= Squirrel( latitude = row[1],
+                        longitude = row[0],
+                        unique_id = row[2],
+                        shift = row[4],
+                        date = row[5],
+                        age = row[7],
+                        primary_fur_color = row[8],
+                        location = row[12],
+                        specific_location = row[14],
+                        quaas = row[22],
+                        moans = row[23],
+                        tail_flags = row[24],
+                        tail_twitches = row[25],
+                        approaches = row[26],
+                        indifferent = row[27],
+                        runs_from = row[28],
+                        running = row[15],
+                        chasing = row[16],
+                        climbing = row[17],
+                        eating = row[18],
+                        foraging = row[19],
+                        other_activities = row[20],
+                        kuks = row[21])
+                db_row.save()
+            for squirrel in Squirrel.objects.all():
+                print (squirrel)
