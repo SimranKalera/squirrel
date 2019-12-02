@@ -74,7 +74,7 @@ class Squirrel(models.Model):
             help_text=_('Whether the squirrel was seen twitching its tail'),
             )
     approaches = models.BooleanField(
-            help_text=_('Whether the Squirrel was seen approaching human, seeking food'),
+            help_text=_('Whether the squirrel was seen approaching human, seeking foodl'),
             )
     indifferent = models.BooleanField(
             help_text=_('Whether the Squirrel was indifferent to human presence'),
