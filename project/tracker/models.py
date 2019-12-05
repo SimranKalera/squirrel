@@ -143,9 +143,3 @@ class Squirrel(models.Model):
             help_text=_('Whether squirrel was heard kukking'),
             default=False,
             )
-
-  
-
-
-
-# Create your models here.
