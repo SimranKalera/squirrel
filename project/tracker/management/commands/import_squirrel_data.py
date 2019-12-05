@@ -1,47 +1,50 @@
-from django.core.management.base import BaseCommand
-import os, csv, sys
-import pandas as pd
+import csv
+from django.db import IntegrityError
+from django.core.management import BaseCommand
 from tracker.models import Squirrel
+import argparse
 
 class Command(BaseCommand):
-    help = 'Import data from 2018 census file'
-
-    def add_arguments(self, parser):
-        parser.add_argument('file_path', type=str, help='Indicates the file path of the squirrel data file')
+    help = 'Load a csv file into the database'
+    
+    def add_arguments(self,parser):
+        parser.add_argument('path', type=str)
 
     def handle(self, *args, **kwargs):
-        file_path = sys.argv[0]
-        if not os.path.exists(file_path):
-            raise CommandError("%s doesnt exist"%file_path)
-        
-        data = pd.read_csv(file_path, delimiter=',', error_bad_lines=False)
-        squirrels = [
-                Squirrel(
-                    latitude = row[1][1],
-                    longitude = row[1][0],
-                    unique_id = row[1][2],
-                    shift = row[1][4],
-                    date = row[1][5],
-                    age = row[1][7],
-                    primary_fur_color = row[1][8],
-                    location = row[1][12],
-                    specific_location = row[1][14],
-                    quaas = row[1][22],
-                    moans = row[1][23],
-                    tail_flags = row[1][24],
-                    tail_twitches = row[1][25],
-                    approaches = row[1][26],
-                    indifferent = row[1][27],
-                    runs_from = row[1][28],
-                    running = row[1][15],
-                    chasing = row[1][16],
-                    climbing = row[1][17],
-                    eating = row[1][18],
-                    foraging = row[1][19],
-                    other_activities = row[1][20],
-                    kuks = row[1][21],
+        print('Deleting all sightings..')
+        Squirrel.objects.all().delete()
+        print('Importing..');
+        path = kwargs['path']
+        with open(path, 'rt') as f:
+            reader = csv.reader(f, dialect='excel')
+            next(reader,None)
+            for row in reader:
+                try: 
+                    squirrel = Squirrel.objects.create(
+                        longitude=row[0],
+                        latitude=row[1],
+                        unique_id=row[2],
+                        shift=row[4],
+                        date=row[5],
+                        age=row[7],
+                        primary_fur_color=row[8],
+                        location=row[12],
+                        specific_location=row[14],
+                        running=(row[15]=='true'),
+                        chasing=(row[16]=='true'),
+                        climbing=(row[17]=='true'),
+                        eating=(row[18]=='true'),
+                        foraging=(row[19]=='true'),
+                        other_activities=row[20],
+                        kuks=(row[21]=='true'),
+                        quaas=(row[22]=='true'),
+                        moans=(row[23]=='true'),
+                        tail_flags=(row[24]=='true'),
+                        tail_twitches=(row[25]=='true'),
+                        approaches=(row[26]=='true'),
+                        indifferent=(row[27]=='true'),
+                        runs_from=(row[28] == 'true'),
                     )
-               for row in data.iterrows()
-               ]
-        Squirrel.objects.bulk_create(squirrels)
-            
+                    squirrel.save()
+                except IntegrityError as e:
+                    print('Skipping', row[2], 'due to integrity error')
