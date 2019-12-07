@@ -1,5 +1,26 @@
-<ul>
-	{% for squirrel in squirrels %}
-		<li>{{squirrel.unique_id}}</li>
-	{% endfor %}
-</ul>
+<!doctype>
+<html>
+        <head>
+                <title> Sightings view </title>
+                <p><a href = '/'> Back to main page </a></p>
+                <h1> SIGHTINGS VIEW </h1>
+        </head>
+        <body>
+                <h2> Click to view squirrel statistics:</h2>
+                <ul>
+                        <li><p> <a href = '/tracker/sightings/stats'> General Stats about squirrel Data </a></p></li>
+                </ul>
+                <h2> Click below to add a new squirrel sighting:</h2>
+                <ul>
+                        <li><p> <a href = '/tracker/sightings/add'> Add New Squirrel Sighting </a> </p></li>
+                </ul>
+                <h2> Click on the squirrel ID to update the existing data:</h2>
+                <p>
+                        <ul>
+                                {% for squirrel in squirrels %}
+				<li><a href = '/tracker/sightings/{{ squirrel.unique_id}}'>{{squirrel.unique_id}}</a></li>
+                                {% endfor %}
+                        </ul>
+                </p>
+        </body>
+</html>

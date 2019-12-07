@@ -27,7 +27,7 @@ def update(request, unique_id):
 
         if form.is_valid():
             form.save()
-            return redirect(f'/tracker/sightings')
+            return redirect(f'tracker/sightings')
 
     else:
         form = SquirrelForm(instance=squirrel)
