@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 
 from .models import Squirrel
+from .forms import SquirrelForm
 
 
 def map(request):
@@ -52,7 +53,7 @@ def create(request):
     context={
             'form':form,
             }
-    return render(request, 'tracker/update.html' context)
+    return render(request, 'tracker/update.html', context)
 
 def view_stats(request):
     am=0
@@ -76,12 +77,12 @@ def view_stats(request):
         if s.climbing==True:
             climbing += 1
     context ={
-            'Shift - AM Count':am,
-            'Shift - PM Count':pm,
-            'Running Count':running,
-            'Chasing Count':chasing,
-            'Eating Count':eating,
-            'Climbing Count': climbing,
+            'am':am,
+            'pm':pm,
+            'running':running,
+            'chasing':chasing,
+            'eating':eating,
+            'climbing': climbing,
             }
     return render(request, 'tracker/stats.html', context)
 >>>>>>> 6adfa0b1aaf26fad6fe7a25368b7e0d32f7e3782
