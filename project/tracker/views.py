@@ -27,10 +27,10 @@ def update(request, unique_id):
 
         if form.is_valid():
             form.save()
-            return redirect(f'/tracker/{unique_id}')
+            return redirect(f'/tracker/sightings')
 
     else:
-        form = SquirrelForm()
+        form = SquirrelForm(nstance=squirrel)
     context = {
             'form': form,
             }
