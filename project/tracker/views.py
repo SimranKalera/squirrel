@@ -30,7 +30,7 @@ def update(request, unique_id):
             return redirect(f'/tracker/sightings')
 
     else:
-        form = SquirrelForm(nstance=squirrel)
+        form = SquirrelForm(instance=squirrel)
     context = {
             'form': form,
             }
