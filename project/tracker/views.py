@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
 from .models import Squirrel
@@ -27,7 +27,7 @@ def update(request, unique_id):
 
         if form.is_valid():
             form.save()
-            return redirect(f'tracker/sightings')
+            return redirect(f'/tracker/sightings')
 
     else:
         form = SquirrelForm(instance=squirrel)
@@ -39,9 +39,9 @@ def update(request, unique_id):
 def create(request):
     if request.method=='POST':
         form = SquirrelForm(request.POST)
-        if form.isvalid():
+        if form.is_valid():
             form.save()
-            return redirect(f'/sightings')
+            return redirect(f'/tracker/sightings')
     else:
         form = SquirrelForm()
     context={
