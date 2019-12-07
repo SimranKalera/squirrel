@@ -21,11 +21,7 @@ def sightings(request):
     return render(request, 'tracker/sightings.html', context)
 
 def update(request, unique_id):
-<<<<<<< HEAD
-    squirrel= Squirrel.objects.get(id= unique_id)
-=======
     squirrel= Squirrel.objects.get(unique_id = unique_id)
->>>>>>> 6adfa0b1aaf26fad6fe7a25368b7e0d32f7e3782
     if request.method == 'POST':
         form = SquirrelForm (request.POST, instance = squirrel)
 
@@ -40,8 +36,6 @@ def update(request, unique_id):
             }
     return render(request, 'tracker/update.html', context)
 
-<<<<<<< HEAD
-=======
 def create(request):
     if request.method=='POST':
         form = SquirrelForm(request.POST)
@@ -85,7 +79,6 @@ def view_stats(request):
             'climbing': climbing,
             }
     return render(request, 'tracker/stats.html', context)
->>>>>>> 6adfa0b1aaf26fad6fe7a25368b7e0d32f7e3782
 
 
 
