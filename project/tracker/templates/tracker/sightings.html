@@ -5,20 +5,27 @@
                 <p><a href = '/'> Back to main page </a></p>
                 <h1> SIGHTINGS VIEW </h1>
         </head>
+<style>
+body{
+	background-image:url('https://get.wallhere.com/photo/surface-network-light-background-texture-1066111.jpg');
+		background-repeat:no-repeat;
+			background-size:cover;
+}
+</style>
         <body>
                 <h2> Click to view squirrel statistics:</h2>
                 <ul>
-                        <li><p> <a href = '/tracker/sightings/stats'> General Stats about squirrel Data </a></p></li>
+                        <li><p> <a href = '/sightings/stats'> General Stats about squirrel Data </a></p></li>
                 </ul>
                 <h2> Click below to add a new squirrel sighting:</h2>
                 <ul>
-                        <li><p> <a href = '/tracker/sightings/add'> Add New Squirrel Sighting </a> </p></li>
+                        <li><p> <a href = '/sightings/add'> Add New Squirrel Sighting </a> </p></li>
                 </ul>
                 <h2> Click on the squirrel ID to update the existing data:</h2>
                 <p>
                         <ul>
                                 {% for squirrel in squirrels %}
-				<li><a href = '/tracker/sightings/{{ squirrel.unique_id}}'>{{squirrel.unique_id}}</a></li>
+				<li><a href = '/sightings/{{ squirrel.unique_id}}'>{{squirrel.unique_id}}</a></li>
                                 {% endfor %}
                         </ul>
                 </p>
