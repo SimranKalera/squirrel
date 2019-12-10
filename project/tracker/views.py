@@ -4,6 +4,8 @@ from django.http import HttpResponse
 from .models import Squirrel
 from .forms import SquirrelForm
 
+def beauty(request):
+    return render(request, 'tracker/beauty.html')
 
 def map(request):
     sightings= Squirrel.objects.all()[:100]
@@ -27,7 +29,7 @@ def update(request, unique_id):
 
         if form.is_valid():
             form.save()
-            return redirect(f'/tracker/sightings')
+            return redirect(f'/sightings')
 
     else:
         form = SquirrelForm(instance=squirrel)
@@ -41,7 +43,7 @@ def create(request):
         form = SquirrelForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect(f'/tracker/sightings')
+            return redirect(f'/sightings')
     else:
         form = SquirrelForm()
     context={
